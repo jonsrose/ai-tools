@@ -7,7 +7,7 @@ const Home = () => {
   const callGreeting = async () => {
     try {
       const greeting = httpsCallable(functions, 'greeting');
-      const result = await greeting();
+      const result = await greeting() as { data: { message: string } };
       setMessage(result.data.message);
     } catch (error) {
       console.error(error);

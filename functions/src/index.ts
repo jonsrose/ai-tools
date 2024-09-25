@@ -22,17 +22,10 @@ export const helloWorld = onRequest((request, response) => {
 });
 
 export const greeting = onCall(async (request: CallableRequest<unknown>) => {
-  // const { data } = request;
-
-  // logger.info("Data: ", data);
-
-  // // Perform type checking before using data
-  // if (typeof data === 'object' && data !== null && 'name' in data) {
-  //   const { name } = data as { name: string };
-  //   return { message: `Hello, ${name}!` };
-  // }
-
-  // throw new Error('Invalid data');
+  // Check if the request is authenticated
+  if (!request.auth) {
+    throw new Error('Unauthenticated');
+  }
 
   return { message: "Hello, World!" };
 });
