@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { auth } from '../firebase';
 import { User } from 'firebase/auth';
 import AuthForm from './AuthForm';
 
 const Home = () => {
-  const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
