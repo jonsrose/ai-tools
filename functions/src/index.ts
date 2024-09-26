@@ -22,10 +22,12 @@ export const helloWorld = onRequest((request, response) => {
 });
 
 export const greeting = onCall(async (request: CallableRequest<unknown>) => {
-  // Check if the request is authenticated
   if (!request.auth) {
     throw new Error('Unauthenticated');
   }
 
-  return { message: "Hello, World!" };
+  // Retrieve the authenticated user's email
+  const email = request.auth.token.email;
+
+  return { message: `Hello, ${email}!` };
 });
