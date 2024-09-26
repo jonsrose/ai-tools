@@ -1,5 +1,5 @@
 {
-  "name": "firebase_auth3",
+  "name": "speech-to-text",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview --port 3000"
   },
   "dependencies": {
     "firebase": "^10.13.2",
