@@ -1,53 +1,45 @@
-import React, { useState } from 'react';
-import { functions, httpsCallable } from '../firebase';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { auth } from '../firebase';
+import { User } from 'firebase/auth';
+import AuthForm from './AuthForm';
 
 const Home = () => {
-  const [message, setMessage] = useState('');
-  const [hasApiKey, setHasApiKey] = useState(false);
-  const [newApiKey, setNewApiKey] = useState('');
+  const navigate = useNavigate();
+  const [user, setUser] = useState<User | null>(null);
 
-  const callGreeting = async () => {
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
     try {
-      const greeting = httpsCallable(functions, 'greeting');
-      const result = await greeting() as { data: { message: string, hasApiKey: boolean } };
-      setMessage(result.data.message);
-      setHasApiKey(result.data.hasApiKey);
+      await auth.signOut();
+      // The user state will be updated by the onAuthStateChanged listener
     } catch (error) {
-      console.error(error);
-      alert(error);
+      console.error('Error logging out:', error);
+      alert('Error logging out');
     }
   };
 
-  const handleStoreApiKey = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const storeApiKey = httpsCallable(functions, 'storeApiKey');
-      await storeApiKey({ apiKey: newApiKey });
-      alert('API key stored successfully');
-      setNewApiKey('');
-      setHasApiKey(true);
-    } catch (error) {
-      console.error(error);
-      alert('Error storing API key');
-    }
-  };
+  if (!user) {
+    return <AuthForm />;
+  }
 
   return (
     <div>
-      <h2>Welcome!</h2>
-      <button onClick={callGreeting}>Submit</button>
-      {message && <p>{message}</p>}
-      {hasApiKey && <p>OpenAI API Key is stored.</p>}
-
-      <form onSubmit={handleStoreApiKey}>
-        <input
-          type="text"
-          value={newApiKey}
-          onChange={(e) => setNewApiKey(e.target.value)}
-          placeholder="Enter new OpenAI API key"
-        />
-        <button type="submit">Store API Key</button>
-      </form>
+      <h2>Welcome, {user.email}!</h2>
+      <nav>
+        <ul>
+          <li><Link to="/greeting">Go to Greeting</Link></li>
+          <li><Link to="/store-api-key">Store API Key</Link></li>
+        </ul>
+      </nav>
+      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 };
