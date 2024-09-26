@@ -3,12 +3,16 @@ import { functions, httpsCallable } from '../firebase';
 
 const Home = () => {
   const [message, setMessage] = useState('');
+  const [apiKey, setApiKey] = useState('');
 
   const callGreeting = async () => {
     try {
       const greeting = httpsCallable(functions, 'greeting');
-      const result = await greeting() as { data: { message: string } };
+      const result = await greeting() as { data: { message: string, openaiApiKey?: string } };
       setMessage(result.data.message);
+      if (result.data.openaiApiKey) {
+        setApiKey(result.data.openaiApiKey);
+      }
     } catch (error) {
       console.error(error);
       alert(error);
@@ -20,6 +24,7 @@ const Home = () => {
       <h2>Welcome!</h2>
       <button onClick={callGreeting}>Submit</button>
       {message && <p>{message}</p>}
+      {apiKey && <p>OpenAI API Key: {apiKey}</p>}
     </div>
   );
 };

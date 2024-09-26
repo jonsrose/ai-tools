@@ -26,8 +26,29 @@ export const greeting = onCall(async (request: CallableRequest<unknown>) => {
     throw new Error('Unauthenticated');
   }
 
-  // Retrieve the authenticated user's email
   const email = request.auth.token.email;
+  
+  try {
+    // Get the user document from Firestore
+    const userDoc = await admin.firestore().collection('users').doc(request.auth.uid).get();
+    
+    if (!userDoc.exists) {
+      throw new Error('User document not found');
+    }
 
-  return { message: `Hello, ${email}!` };
+    const userData = userDoc.data();
+    const openaiApiKey = userData?.openai_api_key;
+
+    if (!openaiApiKey) {
+      return { message: `Hello, ${email}! No OpenAI API key found.` };
+    }
+
+    return { 
+      message: `Hello, ${email}!`,
+      openaiApiKey: openaiApiKey 
+    };
+  } catch (error) {
+    logger.error('Error fetching user data:', error);
+    throw new Error('Error fetching user data');
+  }
 });
