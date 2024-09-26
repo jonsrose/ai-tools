@@ -18,7 +18,6 @@ const Home = () => {
   const handleLogout = async () => {
     try {
       await auth.signOut();
-      // The user state will be updated by the onAuthStateChanged listener
     } catch (error) {
       console.error('Error logging out:', error);
       alert('Error logging out');
@@ -36,6 +35,7 @@ const Home = () => {
         <ul>
           <li><Link to="/greeting">Go to Greeting</Link></li>
           <li><Link to="/store-api-key">Store API Key</Link></li>
+          <li><Link to="/speech-to-text">Speech to Text</Link></li>
         </ul>
       </nav>
       <button onClick={handleLogout}>Logout</button>
