@@ -52,22 +52,22 @@ const SpeechToText = () => {
   };
 
   return (
-    <div>
-      <h2>Speech to Text</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="file" onChange={handleFileChange} accept="audio/*" />
-        <button type="submit" disabled={!file || isLoading}>
+    <div className="max-w-md mx-auto">
+      <h2 className="text-2xl font-bold mb-4">Speech to Text</h2>
+      <form onSubmit={handleSubmit} className="mb-4">
+        <input type="file" onChange={handleFileChange} accept="audio/*" className="mb-2" />
+        <button type="submit" disabled={!file || isLoading} className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50">
           {isLoading ? 'Transcribing...' : 'Transcribe'}
         </button>
       </form>
       {transcription && (
-        <div>
-          <h3>Transcription:</h3>
-          <p>{transcription}</p>
+        <div className="mb-4">
+          <h3 className="text-xl font-bold mb-2">Transcription:</h3>
+          <p className="bg-gray-100 p-4 rounded">{transcription}</p>
         </div>
       )}
       <nav>
-        <Link to="/">Back to Home</Link>
+        <Link to="/" className="text-blue-500 hover:text-blue-700">Back to Home</Link>
       </nav>
     </div>
   );

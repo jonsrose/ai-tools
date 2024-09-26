@@ -20,13 +20,13 @@ const Greeting = () => {
   };
 
   return (
-    <div>
-      <h2>Greeting</h2>
-      <button onClick={callGreeting}>Get Greeting</button>
-      {message && <p>{message}</p>}
-      {hasApiKey && <p>OpenAI API Key is stored.</p>}
+    <div className="max-w-md mx-auto">
+      <h2 className="text-2xl font-bold mb-4">Greeting</h2>
+      <button onClick={callGreeting} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">Get Greeting</button>
+      {message && <p className="mb-2">{message}</p>}
+      {hasApiKey && <p className="mb-4 text-green-600">OpenAI API Key is stored.</p>}
       <nav>
-        <Link to="/">Back to Home</Link>
+        <Link to="/" className="text-blue-500 hover:text-blue-700">Back to Home</Link>
       </nav>
     </div>
   );
