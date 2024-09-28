@@ -14,7 +14,6 @@ const SpeechToText = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    console.log('Submit button clicked');
     e.preventDefault();
     if (!file) {
       alert('Please select a file');
@@ -22,7 +21,6 @@ const SpeechToText = () => {
     }
 
     setIsLoading(true);
-    console.log('isLoading set to true');
 
     try {
       const fileContent = await readFileAsArrayBuffer(file);
@@ -39,13 +37,11 @@ const SpeechToText = () => {
         fileContent: base64
       });
 
-      console.log('result:', result.data);
       setTranscription(result.data as string);
     } catch (error) {
       console.error('Error transcribing audio:', error);
       alert('Error transcribing audio. Please try again.');
     } finally {
-      console.log('isLoading set to false');
       setIsLoading(false);
     }
   };
