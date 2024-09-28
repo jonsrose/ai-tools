@@ -55,7 +55,7 @@ const SpeechToText = () => {
     <div className="max-w-md mx-auto">
       <h2 className="text-2xl font-bold mb-4">Speech to Text</h2>
       <form onSubmit={handleSubmit} className="mb-4">
-        <input type="file" onChange={handleFileChange} accept="audio/*" className="mb-2" />
+        <input type="file" onChange={handleFileChange} className="mb-2" />
         <button type="submit" disabled={!file || isLoading} className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50">
           {isLoading ? 'Transcribing...' : 'Transcribe'}
         </button>
