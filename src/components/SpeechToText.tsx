@@ -14,6 +14,7 @@ const SpeechToText = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+    console.log('Submit button clicked');
     e.preventDefault();
     if (!file) {
       alert('Please select a file');
@@ -21,34 +22,47 @@ const SpeechToText = () => {
     }
 
     setIsLoading(true);
+    console.log('isLoading set to true');
+
     try {
-      const reader = new FileReader();
-      reader.onload = async (event) => {
-        if (event.target) {
-          const fileContent = event.target.result as ArrayBuffer;
-          const base64 = btoa(
-            new Uint8Array(fileContent).reduce(
-              (data, byte) => data + String.fromCharCode(byte),
-              ''
-            )
-          );
+      const fileContent = await readFileAsArrayBuffer(file);
+      const base64 = btoa(
+        new Uint8Array(fileContent).reduce(
+          (data, byte) => data + String.fromCharCode(byte),
+          ''
+        )
+      );
 
-          const speechToText = httpsCallable(functions, 'speechToText');
-          const result = await speechToText({ 
-            fileName: file.name,
-            fileContent: base64
-          });
+      const speechToText = httpsCallable(functions, 'speechToText');
+      const result = await speechToText({ 
+        fileName: file.name,
+        fileContent: base64
+      });
 
-          setTranscription(result.data as string);
-        }
-      };
-      reader.readAsArrayBuffer(file);
+      console.log('result:', result.data);
+      setTranscription(result.data as string);
     } catch (error) {
       console.error('Error transcribing audio:', error);
       alert('Error transcribing audio. Please try again.');
     } finally {
+      console.log('isLoading set to false');
       setIsLoading(false);
     }
+  };
+
+  const readFileAsArrayBuffer = (file: File): Promise<ArrayBuffer> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        if (event.target && event.target.result) {
+          resolve(event.target.result as ArrayBuffer);
+        } else {
+          reject(new Error('Failed to read file'));
+        }
+      };
+      reader.onerror = (error) => reject(error);
+      reader.readAsArrayBuffer(file);
+    });
   };
 
   return (
