@@ -8,7 +8,7 @@ const SpeechToText = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
+    if (e.target.files && e.target.files[0]) {
       setFile(e.target.files[0]);
     }
   };
@@ -65,8 +65,17 @@ const SpeechToText = () => {
     <div className="max-w-md mx-auto">
       <h2 className="text-2xl font-bold mb-4">Speech to Text</h2>
       <form onSubmit={handleSubmit} className="mb-4">
-        <input type="file" onChange={handleFileChange} className="mb-2" />
-        <button type="submit" disabled={!file || isLoading} className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50">
+        <input 
+          type="file" 
+          onChange={handleFileChange} 
+          accept="audio/mp3,audio/mp4,audio/mpeg,audio/mpga,audio/m4a,audio/wav,audio/webm"
+          className="mb-2 w-full p-2 border border-gray-300 rounded"
+        />
+        <button 
+          type="submit" 
+          disabled={!file || isLoading} 
+          className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
+        >
           {isLoading ? 'Transcribing...' : 'Transcribe'}
         </button>
       </form>
