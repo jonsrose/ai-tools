@@ -27,7 +27,7 @@ const App: React.FC = () => {
           {/* Common header */}
           <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">Speech To Text</h1>
           
-          <Router basename="/speech-to-text">
+          <Router basename="/ai-tools-suite">
             <Routes>
               {routes.map((route) => (
                 <Route key={route.path} {...(route as RouteProps)} />

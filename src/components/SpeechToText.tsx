@@ -68,7 +68,7 @@ const SpeechToText = () => {
         <input 
           type="file" 
           onChange={handleFileChange} 
-          accept="audio/mp3,audio/mp4,audio/mpeg,audio/mpga,audio/m4a,audio/wav,audio/webm"
+          accept="audio/*,.m4a"
           className="mb-2 w-full p-2 border border-gray-300 rounded"
         />
         <button 

@@ -1,13 +1,21 @@
-# Speech-to-Text Transcription App
+# AI Tools Suite
 
-This project is a TypeScript React application built with Vite that allows users to transcribe audio files using their own OpenAI API key. It utilizes Firebase for authentication and a Firestore database to securely store users' encrypted API keys.
+This project is a TypeScript React application built with Vite that aims to provide a suite of AI-powered tools. Currently, it offers a speech-to-text transcription tool using OpenAI's API, with plans to expand to more AI tools in the future. Users can access these tools using their own OpenAI API key. The application utilizes Firebase for authentication and a Firestore database to securely store users' encrypted API keys.
 
 ## Project Overview
 
-This application enables users to upload audio files and receive transcripts using OpenAI's speech-to-text API. The process involves two main steps:
+This application is designed to host various AI tools, although it currently focuses solely on speech-to-text transcription. The process involves two main steps:
 
 1. Setting up your OpenAI API key (which will be encrypted and stored in Firestore)
-2. Running the speech-to-text transcription
+2. Using the available AI tool (currently only speech-to-text transcription)
+
+### Current Tool
+
+1. **Speech-to-Text Transcription**: Upload audio files and receive transcripts using OpenAI's speech-to-text API.
+
+### Future Plans
+
+We plan to expand this suite with additional AI-powered tools in the future. Stay tuned for updates!
 
 ## Getting Started
 
@@ -34,12 +42,12 @@ Before installing the application, you need to set up a Firebase project:
 
 1. Clone the repository:
    ```
-   git clone https://github.com/jonsrose/speech-to-text.git
+   git clone https://github.com/jonsrose/ai-tools-suite.git
    ```
 
 2. Navigate to the project directory:
    ```
-   cd speech-to-text
+   cd ai-tools-suite
    ```
 
 3. Create a `.env` file in the root directory of the project. This file is already ignored by git for security reasons. Add your Firebase configuration to this file. You can retrieve these values from your Firebase project settings:
@@ -62,14 +70,14 @@ Before installing the application, you need to set up a Firebase project:
 
 ### Usage
 
-1. Start the application:
+1. Start the development server:
    ```
    npm run dev
    ```
 
-2. Open your browser and navigate to `http://localhost:3000`
+2. Open your browser and navigate to `http://localhost:5173/ai-tools-suite/` (or the port specified by Vite)
 
-3. Use the interface to upload an audio file and initiate the transcription process
+3. Use the interface to access the speech-to-text transcription tool
 
 ### Development
 
@@ -111,7 +119,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-- [OpenAI](https://openai.com/) for providing the speech-to-text API
+- [OpenAI](https://openai.com/) for providing the speech-to-text API and other AI capabilities
 - [Vite](https://vitejs.dev/) for the fast build tool and development server
 - [React](https://reactjs.org/) for the frontend framework
 - [Firebase](https://firebase.google.com/) for backend services, authentication, and Firestore database
